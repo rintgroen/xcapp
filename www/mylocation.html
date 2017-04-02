@@ -19,9 +19,47 @@
     <div data-page="mylocation" class="page">
         <div class="page-content">
             <div class="content-block">
-				Latitude: {{latitude}}<br>
-				Longitude: {{longitude}}<br>
-				Altitude: {{altitude}}<br>
+		<div class="row">
+		    <div class="col-25">
+			<img id="compass" src="img/north.png" style="width: 80px;" ></img>
+		    </div>
+		    <div class="col-75">
+			<div id="geolocation">
+			    Position:
+			    <div class="row">
+				<div id="posLat" class="col-40">[lat]</div>
+				<div id="posLon" class="col-40">[lon]</div>
+				<div id="posAcc" class="col-20">[acc]</div>
+			    </div>
+			    <br>
+			    <div class="row">
+				<div class="col-50">
+				    Velocity:
+				    <div class="row">
+					<div class="col-50">
+					    <div id="vel" >[vel]</div>
+					</div>
+					<div class="col-50">
+					    <div id="velDir" >[dir]</div>
+					</div>
+				    </div>
+				</div>
+				<div class="col-50">
+				    Altitude:
+				    <div class="row">
+					<div class="col-50">
+					    <div id="alt" >[alt]</div>
+					</div>
+					<div class="col-50">
+					    <div id="altAcc" >[acc]</div>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		</div>
+		<div id="map"></div>
             </div>
         </div>
     </div>

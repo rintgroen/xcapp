@@ -84,8 +84,9 @@
                     <!-- Scrollable page content -->
                     <div class="page-content">
                         <div class="content-block">
-						<p>Airspire gaat over buitenspelen, avonturen beleven en dromen waarmaken. Het gaat over inspireren en geïnspireerd worden. Denken en doen! Laat je gaan en doe mee!</p>
-						<p><a href="test.html"><h2>TEST</h2></a></p>
+			    <p>Airspire gaat over buitenspelen, avonturen beleven en dromen waarmaken. Het gaat over inspireren en geïnspireerd worden. Denken en doen! Laat je gaan en doe mee!</p>
+			    <p><a href="mylocation.html" class="button">Show My Location</a></p>
+			    <!--<p><a href="test.html" class="button">Test</a></p>-->
                         </div>
                     </div>
                 </div>
@@ -100,6 +101,16 @@
             </div>
         </div>
     </div>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLnI_jFkENu8RD47FrZLle20OK5dyIQO8"></script>
+
+    <script type="text/template7" id="geolocationTemplate">
+	<div id="geolocation">
+	Latitude: <div id="latitude" >{{latitude}}</div><br>
+	Longitude: <div id=" longitude" >{{longitude}}</div><br>
+	Altitude: <div id="altitude" >{{altitude}}</div><br>
+	</div>
+    </script>
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>

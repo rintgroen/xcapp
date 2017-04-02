@@ -15,5 +15,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="www/img/airspire_logo_144x144.png" />
+    <splash src="www/img/splash.png" />
     <preference name="DisallowOverscroll" value="true" />
 </widget>
