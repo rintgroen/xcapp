@@ -19,6 +19,7 @@
 	<splash src="www/img/splash.png" />
     <platform name="android">
         <preference name="android-minSdkVersion" value="14" />
+	<feature name="http://api.phonegap.com/1.0/geolocation"/>
         <allow-intent href="market:*" />
     </platform>
     <platform name="ios">
