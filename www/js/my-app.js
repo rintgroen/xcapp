@@ -95,7 +95,6 @@ myApp.onPageInit('mylocation', function (page) {
 	}
 	if (!(velDir==null)) {
 	    $$('#velDir').html(velDir+'&#176;');
-	    $$('#compass').transform('rotate(-'+velDir+'deg)');
 	}
 	
 	if (!(alt==null)) {
@@ -116,8 +115,13 @@ myApp.onPageInit('mylocation', function (page) {
     }
     
     var watchId = navigator.geolocation.watchPosition(onSuccess, onError, { enableHighAccuracy: true });
-    //navigator.geolocation.getCurrentPosition(onSuccess, onError);
-    //alert('page test initialized');
+    
+    var watchId2 = navigator.compass.watchHeading(function(heading) {
+	var hdgMag = heading.magneticHeading;
+	if (!(hdgMag==null)) {
+	    $$('#compass').transform('rotate(-'+Math.round(heading.magneticHeading)+'deg)');
+	}
+    });
 
 })
 
