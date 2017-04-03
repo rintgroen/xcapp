@@ -31,5 +31,6 @@
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <plugin name="cordova-plugin-geolocation" />
+    <plugin name="cordova-plugin-googlemaps" />
     <plugin name="cordova-plugin-inappbrowser" />
 </widget>

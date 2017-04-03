@@ -25,6 +25,7 @@ $$(document).on('deviceready', function() {
 
 
 myApp.onPageInit('mylocation', function (page) {
+    
     var posLat = null;
     var posLon = null;
     var posAcc = null;
@@ -35,33 +36,46 @@ myApp.onPageInit('mylocation', function (page) {
     var geoTime = null;
     
     function getMap(latitude, longitude) {
+	
+	var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
     
-	var mapOptions = {
-	    center: new google.maps.LatLng(0, 0),
-	    zoom: 1,
-	    mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-    
-	map = new google.maps.Map
-	(document.getElementById("map"), mapOptions);
-    
-    
-	var latLong = new google.maps.LatLng(latitude, longitude);
-    
-	var marker = new google.maps.Marker({
-	    position: latLong
-	});
-    
-	marker.setMap(map);
-	map.setZoom(15);
-	map.setCenter(marker.getPosition());
+	//var mapOptions = {
+	//    center: new google.maps.LatLng(0, 0),
+	//    zoom: 1,
+	//    mapTypeId: google.maps.MapTypeId.ROADMAP
+	//};
+	//   
+	//map = new google.maps.Map
+	//(document.getElementById("map"), mapOptions);
+	//   
+	//   
+	//var latLong = new google.maps.LatLng(latitude, longitude);
+	//   
+	//var marker = new google.maps.Marker({
+	//    position: latLong
+	//});
+	//   
+	//marker.setMap(map);
+	//map.setZoom(15);
+	//map.setCenter(marker.getPosition());
     }
     
     var onSuccess = function(position) {
 	posLat = position.coords.latitude;
 	posLon = position.coords.longitude;
 	posAcc = position.coords.accuracy;
+	vel = position.coords.speed;
 	velDir = position.coords.heading;
+	alt = position.coords.altitude;
+	altAcc = position.coords.altitudeAccuracy;
 	
 	if (posLat>0) {
 	    $$('#posLat').html('N '+posLat);
@@ -76,15 +90,24 @@ myApp.onPageInit('mylocation', function (page) {
 	}
 	$$('#posAcc').html('&plusmn;'+Math.round(posAcc)+'m');
 	
-	$$('#vel').html(vel+'m/s');
-	$$('#velDir').html(velDir+'&#176;');
-	$$('#compass').transform('rotate(-'+velDir+'deg)');
+	if (!(vel==null)) {
+	    $$('#vel').html(Math.round(vel*3.6)+'km/h');
+	}
+	if (!(velDir==null)) {
+	    $$('#velDir').html(velDir+'&#176;');
+	    $$('#compass').transform('rotate(-'+velDir+'deg)');
+	}
 	
-	$$('#alt').html(vel+'m');
-	$$('#altAcc').html('&plusmn;'+Math.round(altAcc)+'m');
+	if (!(alt==null)) {
+	    $$('#alt').html(Math.round(alt)+'m');
+	}
+	if (!(altAcc==null)) {
+	    $$('#altAcc').html('&plusmn;'+Math.round(altAcc)+'m');
+	} else {
+	    $$('#altAcc').html('');
+	}
 	
 	//getMap(posLat,posLon);
-	$$('#map').html('here should come the map');
 	
     };
     function onError(error) {
@@ -100,89 +123,41 @@ myApp.onPageInit('mylocation', function (page) {
 
 myApp.onPageInit('test', function (page) {
     
-    alert('testing');
-    
-    var Latitude = undefined;
-    var Longitude = undefined;
-    
-    // Get geo coordinates
-    
-    function getMapLocation() {
-    
-	navigator.geolocation.getCurrentPosition
-	(onMapSuccess, onMapError, { enableHighAccuracy: true });
-    }
-    
-    // Success callback for get geo coordinates
-    
-    var onMapSuccess = function (position) {
-	
-	alert('succes');
-    
-	Latitude = position.coords.latitude;
-	Longitude = position.coords.longitude;
-    
-	getMap(Latitude, Longitude);
-    
-    }
-    
-    // Get map by using coordinates
-    
-    function getMap(latitude, longitude) {
-	
-	alert('getting map');
-    
-	var mapOptions = {
-	    center: new google.maps.LatLng(0, 0),
-	    zoom: 1,
-	    mapTypeId: google.maps.MapTypeId.ROADMAP
-	};
-    
-	map = new google.maps.Map
-	(document.getElementById("map"), mapOptions);
-    
-	var latLong = new google.maps.LatLng(latitude, longitude);
-    
-	var marker = new google.maps.Marker({
-	    position: latLong
-	});
-    
-	marker.setMap(map);
-	map.setZoom(15);
-	map.setCenter(marker.getPosition());
-    }
-    
-    // Success callback for watching your changing position
-    
-    var onMapWatchSuccess = function (position) {
-    
-	var updatedLatitude = position.coords.latitude;
-	var updatedLongitude = position.coords.longitude;
-    
-	if (updatedLatitude != Latitude && updatedLongitude != Longitude) {
-    
-	    Latitude = updatedLatitude;
-	    Longitude = updatedLongitude;
-    
-	    getMap(updatedLatitude, updatedLongitude);
-	}
-    }
-    
-    // Error callback
-    
-    function onMapError(error) {
-	alert('error');
-	console.log('code: ' + error.code + '\n' +
-	    'message: ' + error.message + '\n');
-    }
-    
-    // Watch your changing position
-    
-    function watchMapPosition() {
-    
-	return navigator.geolocation.watchPosition
-	(onMapWatchSuccess, onMapError, { enableHighAccuracy: true });
-    }
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+      }
+      
+      initMap();
 
 });
 
