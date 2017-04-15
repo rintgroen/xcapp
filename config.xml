@@ -26,10 +26,10 @@
         <allow-intent href="itms-apps:*" />
         <preference name="BackupWebStorage" value="none" />
     </platform>
-<!--    <gap:plugin spec="https://github.com/mapsplugin/cordova-plugin-googlemaps" source="git">
+    <gap:plugin name="cordova-plugin-googlemaps" source="npm">
 	<param name="API_KEY_FOR_ANDROID" value="AIzaSyA_FQ6iA22kIATazPcZ2hGGaKFOJSC629k" />
 	<param name="API_KEY_FOR_IOS" value="AIzaSyBuaDEJP146RXm6SYTrNWlGAHfURY_9r2U" />
-    </gap:plugin>-->
+    </gap:plugin>
     <preference name="DisallowOverscroll" value="true" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
